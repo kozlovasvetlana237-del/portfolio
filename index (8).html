@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Портфель финансовых кейсов</title>
+<style>
+:root{--bg:#0b0f14;--panel:#121922;--panel2:#171f2a;--line:#263240;--text:#f4f7fa;--muted:#94a3b3;--accent:#7b8cff;--accent2:#55c2ff;--good:#45cc98;--shadow:0 14px 34px rgba(0,0,0,.24)}
+body[data-theme="light"]{--bg:#f4f6f8;--panel:#fff;--panel2:#f1f4f7;--line:#dbe3eb;--text:#16202b;--muted:#637486;--accent:#5f6fe7;--accent2:#2e9fe7;--good:#228e68;--shadow:0 12px 28px rgba(25,42,66,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,var(--bg),#0d141c 70%);color:var(--text);min-height:100vh}body[data-theme="light"]{background:linear-gradient(180deg,var(--bg),#edf1f5 75%)}a{text-decoration:none;color:inherit}button{font:inherit;cursor:pointer}
+.wrap{max-width:1360px;margin:0 auto;padding:24px}.header{position:sticky;top:0;z-index:20;background:rgba(11,15,20,.86);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}body[data-theme="light"] .header{background:rgba(244,246,248,.9)}
+.header-inner{max-width:1360px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand b{font-size:16px}.brand span{display:block;color:var(--muted);font-size:12px;margin-top:3px}.theme{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:999px;padding:9px 13px}
+.hero{padding:42px 0 26px;display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:end}.hero h1{margin:0;font-size:clamp(38px,5vw,68px);line-height:.98;letter-spacing:-.055em;max-width:930px}.hero p{margin:18px 0 0;color:var(--muted);font-size:16px;line-height:1.6;max-width:860px}
+.hero-side{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow)}.hero-side .eyebrow{color:var(--accent2);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.hero-side h2{margin:10px 0 8px;font-size:18px}.hero-side p{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}.stat b{display:block;font-size:26px;letter-spacing:-.03em}.stat span{display:block;color:var(--muted);font-size:11px;margin-top:5px;line-height:1.35}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:30px 0 18px;padding-bottom:14px;border-bottom:1px solid var(--line)}.filter{border:1px solid var(--line);background:transparent;color:var(--muted);padding:9px 13px;border-radius:999px}.filter.active{background:var(--panel);color:var(--text);border-color:rgba(123,140,255,.45)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:22px 0 14px}.section-head h2{margin:0;font-size:22px}.section-head span{color:var(--muted);font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.case{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:330px;transition:transform .18s ease,border-color .18s ease}.case:hover{transform:translateY(-2px);border-color:rgba(123,140,255,.38)}
+.case-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.case-tag{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 8px}.case-tag.real{color:var(--good);border-color:rgba(69,204,152,.35)}.case-tag.demo{color:var(--accent2);border-color:rgba(85,194,255,.35)}
+.case h3{margin:16px 0 8px;font-size:24px;line-height:1.05;letter-spacing:-.035em}.case .subtitle{color:var(--muted);font-size:13px;line-height:1.45;min-height:38px}.features{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 18px}.feature{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 11px;font-size:12px;line-height:1.4}.feature b{display:block;font-size:11px;color:var(--muted);margin-bottom:3px;font-weight:400}
+.note{color:var(--muted);font-size:11px;line-height:1.5;margin-top:auto;padding-top:6px}.actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}.open{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:11px;background:linear-gradient(180deg,var(--accent),#5969e7);color:#fff;font-size:12px;font-weight:700}.hidden{display:none!important}.footer{margin-top:30px;padding:20px 0 8px;border-top:1px solid var(--line);color:var(--muted);font-size:11px;line-height:1.5}
+
+.case-focus{
+  margin-top:14px;
+  padding:14px;
+  border-radius:14px;
+  background:var(--panel2);
+  border:1px solid var(--line);
+}
+.case-focus h4{
+  margin:0 0 8px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--accent2);
+}
+.case-focus ul{
+  margin:0;
+  padding-left:18px;
+  color:var(--text);
+}
+.case-focus li{
+  margin:5px 0;
+  font-size:12px;
+  line-height:1.45;
+}
+.distinct{
+  margin-top:14px;
+  padding:11px 12px;
+  border-left:3px solid var(--accent);
+  background:rgba(123,140,255,.07);
+  border-radius:8px;
+  font-size:12px;
+  line-height:1.45;
+}
+.distinct b{
+  color:var(--accent2);
+}
+body[data-theme="light"] .distinct{
+  background:rgba(95,111,231,.06);
+}
+
+
+.automation-hero{
+  margin-top:16px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+.automation-hero h2{
+  margin:0 0 8px;
+  font-size:22px;
+  letter-spacing:-.025em;
+}
+.automation-hero p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
+}
+.automation-flow{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+  margin-top:16px;
+}
+.flow-step{
+  position:relative;
+  background:var(--panel2);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:13px;
+  min-height:118px;
+}
+.flow-step b{
+  display:block;
+  font-size:12px;
+  margin-bottom:6px;
+}
+.flow-step span{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.4;
+}
+.flow-step::after{
+  content:"→";
+  position:absolute;
+  right:-10px;
+  top:44%;
+  color:var(--accent2);
+  font-weight:700;
+  z-index:2;
+}
+.flow-step:last-child::after{display:none}
+.automation-result{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+.automation-result div{
+  border-left:3px solid var(--accent);
+  background:rgba(123,140,255,.06);
+  border-radius:9px;
+  padding:11px 12px;
+  font-size:12px;
+  line-height:1.4;
+}
+.case-automation{
+  margin-top:12px;
+  border-top:1px solid var(--line);
+  padding-top:12px;
+}
+.case-automation h4{
+  margin:0 0 7px;
+  font-size:12px;
+  color:var(--good);
+  text-transform:uppercase;
+  letter-spacing:.055em;
+}
+.case-automation ul{
+  margin:0;
+  padding-left:18px;
+}
+.case-automation li{
+  margin:4px 0;
+  font-size:12px;
+  line-height:1.4;
+}
+@media(max-width:1050px){
+  .automation-flow{grid-template-columns:repeat(3,1fr)}
+  .flow-step::after{display:none}
+  .automation-result{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:620px){
+  .automation-flow{grid-template-columns:1fr}
+  .automation-result{grid-template-columns:1fr}
+}
+
+@media(max-width:980px){.hero{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}@media(max-width:620px){.wrap,.header-inner{padding-left:14px;padding-right:14px}.stats{grid-template-columns:1fr 1fr}.features{grid-template-columns:1fr}.hero h1{font-size:42px}}
+</style>
+</head>
+<body data-theme="dark">
+<header class="header"><div class="header-inner"><div class="brand"><b>Портфель финансовых кейсов</b><span>управленческий учет · автоматизация · BI · финансовое моделирование</span></div><button class="theme" id="themeToggle" type="button">Светлая тема</button></div></header>
+<main class="wrap">
+<section class="hero"><div><h1>Автоматизация управленческого учета: от сырых данных до готовых решений</h1><p>Показываю не просто финансовые дашборды, а полный подход к автоматизации управленческого учета: сбор данных из разных источников, единые справочники и правила учета, автоматические расчеты ОПиУ / ДДС / Баланса, контрольные сверки, аналитика и управленческие сигналы.</p></div><aside class="hero-side"><div class="eyebrow">Позиционирование</div><h2>Финансовый директор + архитектор управленческой системы</h2><p>Моя задача - перевести ручной Excel-учет и разрозненные источники в единую автоматизированную систему, где цифры рассчитываются по заданным правилам, сверяются и становятся основой для решений.</p></aside></section>
+<section class="stats"><div class="stat"><b>9</b><span>кейсов, прототипов и финансовых инструментов</span></div><div class="stat"><b>24+</b><span>лет опыта в финансах</span></div><div class="stat"><b>20+</b><span>компаний с построенным управленческим учетом</span></div><div class="stat"><b>4</b><span>бизнес-модели: e-commerce, fashion, EdTech, проектный бизнес</span></div></section>
+
+<section class="automation-hero">
+  <h2>Как я автоматизирую управленческий учет</h2>
+  <p>Сначала проектирую финансовую логику, затем формализую правила и только после этого автоматизирую. Благодаря этому дашборд становится не красивой витриной, а частью работающей системы учета.</p>
+
+  <div class="automation-flow">
+    <div class="flow-step"><b>1. Источники</b><span>1С, CRM, банк, маркетплейсы, API, Excel / Google Sheets.</span></div>
+    <div class="flow-step"><b>2. Нормализация</b><span>единые справочники статей, проектов, направлений, SKU, контрагентов.</span></div>
+    <div class="flow-step"><b>3. Правила учета</b><span>маппинг операций, начисления, распределения, взаиморасчеты, себестоимость.</span></div>
+    <div class="flow-step"><b>4. Авторасчеты</b><span>ОПиУ, ДДС, баланс, unit-экономика, бюджет, прогнозы и KPI.</span></div>
+    <div class="flow-step"><b>5. Контроль</b><span>сверки с банком и источниками, поиск дублей, пропусков и расхождений.</span></div>
+    <div class="flow-step"><b>6. Решения</b><span>дашборды, drill-down, сигналы, сценарии и рекомендации руководителю.</span></div>
+  </div>
+
+  <div class="automation-result">
+    <div><b>Меньше ручной работы</b><br>данные загружаются и пересчитываются по заданной логике.</div>
+    <div><b>Одна версия цифр</b><br>единые правила расчета для финансов и бизнеса.</div>
+    <div><b>Проверяемость</b><br>итоговый показатель можно проследить до исходной операции.</div>
+    <div><b>Быстрее решения</b><br>отчетность становится инструментом управления, а не архивом факта.</div>
+  </div>
+</section>
+
+<div class="controls"><button class="filter active" data-filter="all">Все</button><button class="filter" data-filter="real">Реальные кейсы</button><button class="filter" data-filter="marketplace">Маркетплейсы</button><button class="filter" data-filter="fashion">Fashion</button><button class="filter" data-filter="edtech">EdTech</button><button class="filter" data-filter="fbp">Finance Business Partner</button><button class="filter" data-filter="healthcare">Услуги / медицина</button><button class="filter" data-filter="tax">Налоговое моделирование</button></div>
+<div class="section-head"><h2>Примеры автоматизации по бизнес-моделям</h2><span>нажмите «Открыть кейс», чтобы перейти к полной версии</span></div>
+<section class="grid" id="caseGrid">
+<article class="case" data-tags="real"><div class="case-top"><span class="case-tag real">реальные результаты</span><span class="case-tag">портфолио</span></div><h3>Кейсы финансового директора</h3><div class="subtitle">Подборка реализованных проектов по управленческому учету, прибыльности, запасам и финансовой трансформации.</div><div class="distinct"><b>В чем особенность:</b> это не демонстрация интерфейса, а подборка реальных проектов с фактическими результатами для бизнеса.</div>
+<div class="case-focus"><h4>Что именно показано</h4><ul>
+<li>построение управленческого учета с нуля;</li>
+<li>поиск причин кассовых разрывов и потерь прибыли;</li>
+<li>оптимизация запасов и высвобождение оборотного капитала;</li>
+<li>рост маржинальности и чистой прибыли;</li>
+<li>автоматизация финансовой отчетности;</li>
+<li>работа с несколькими отраслями и бизнес-моделями.</li>
+</ul></div>
+<div class="note">Основной источник подтвержденных кейсов из практики.
+<div class="case-automation"><h4>Что автоматизировала / выстраивала</h4><ul>
+<li>структуру управленческого учета и отчетности;</li>
+<li>регулярное формирование управленческих показателей;</li>
+<li>сверки и контроль качества данных;</li>
+<li>аналитику для собственника и руководителей.</li>
+</ul></div></div><div class="actions"><a class="open" href="https://svetlanakozlova-cfo.lovable.app/" target="_blank" rel="noopener">Открыть кейсы</a></div></article>
+<article class="case" data-tags="marketplace"><div class="case-top"><span class="case-tag demo">демо-прототип</span><span class="case-tag">e-commerce</span></div><h3>Финансовая система маркетплейсов</h3><div class="subtitle">Интерактивный контур для бизнеса на Wildberries и Ozon: экономика SKU, запасы, деньги и управленческие сигналы.</div><div class="distinct"><b>В чем особенность:</b> кейс показывает экономику не компании в целом, а каждого SKU и каждой площадки отдельно.</div>
+<div class="case-focus"><h4>Что именно показано</h4><ul>
+<li>финансовый результат по Wildberries и Ozon;</li>
+<li>unit-экономика по SKU;</li>
+<li>комиссии, логистика, реклама, возвраты и удержания;</li>
+<li>ABC-анализ ассортимента;</li>
+<li>GMROI и эффективность вложений в запасы;</li>
+<li>риск out-of-stock и избыточных запасов;</li>
+<li>денежные потоки и потребность в закупках;</li>
+<li>управленческие сигналы по прибыльности.</li>
+</ul></div>
+<div class="note">Данные синтетические. Прототип показывает архитектуру анализа маркетплейсов.
+<div class="case-automation"><h4>Что здесь автоматизируется</h4><ul>
+<li>загрузка данных WB и Ozon;</li>
+<li>разнесение комиссий, логистики, рекламы и возвратов;</li>
+<li>расчет себестоимости и unit-экономики по SKU;</li>
+<li>ABC / GMROI / остатки / закупочные сигналы;</li>
+<li>ДДС и финансовый результат по площадкам.</li>
+</ul></div></div><div class="actions"><a class="open" href="https://kozlovasvetlana237-del.github.io/marketplace-finance-dashboard/" target="_blank" rel="noopener">Открыть кейс</a></div></article>
+<article class="case" data-tags="fashion"><div class="case-top"><span class="case-tag demo">демо-прототип</span><span class="case-tag">fashion</span></div><h3>Финансовая система fashion-бренда</h3><div class="subtitle">Омниканальный финансовый контур: розница, интернет-магазин, маркетплейсы, производство, закупки и запасы.</div><div class="distinct"><b>В чем особенность:</b> кейс объединяет в одной модели розницу, e-commerce, маркетплейсы, производство и закупки.</div>
+<div class="case-focus"><h4>Что именно показано</h4><ul>
+<li>ОПиУ по каналам продаж;</li>
+<li>экономика розничных магазинов;</li>
+<li>ДДС и прогноз ликвидности на 13 недель;</li>
+<li>управленческий баланс и оборотный капитал;</li>
+<li>ABC-анализ и рентабельность запасов;</li>
+<li>производство в России и Китае;</li>
+<li>закупки, предоплаты и товары в пути;</li>
+<li>влияние запасов и сроков поставки на денежный цикл.</li>
+</ul></div>
+<div class="note">Данные синтетические. Кейс демонстрирует CFO-архитектуру для fashion-бизнеса.
+<div class="case-automation"><h4>Что здесь автоматизируется</h4><ul>
+<li>консолидация розницы, e-commerce и маркетплейсов;</li>
+<li>ОПиУ по каналам и магазинам;</li>
+<li>управление запасами и оборотным капиталом;</li>
+<li>производство, закупки и товары в пути;</li>
+<li>13-недельный прогноз денежных средств.</li>
+</ul></div></div><div class="actions"><a class="open" href="https://kozlovasvetlana237-del.github.io/fashion-finance-system-case/" target="_blank" rel="noopener">Открыть кейс</a></div></article>
+<article class="case" data-tags="edtech"><div class="case-top"><span class="case-tag demo">демо-прототип</span><span class="case-tag">EdTech</span></div><h3>Бюджетирование и финансовый контроль онлайн-школы</h3><div class="subtitle">Система для руководителя FP&A: бюджет, план-факт, скользящий прогноз, финмодель, казначейство и контроль данных.</div><div class="distinct"><b>В чем особенность:</b> кейс построен вокруг управления будущим результатом через бюджет, драйверы и скользящий прогноз.</div>
+<div class="case-focus"><h4>Что именно показано</h4><ul>
+<li>бюджет и план-факт по подразделениям;</li>
+<li>факторный анализ отклонений;</li>
+<li>скользящий прогноз до конца года;</li>
+<li>ОПиУ, ДДС и управленческий баланс;</li>
+<li>интерактивная финансовая модель с бегунками;</li>
+<li>дерево финансовых метрик;</li>
+<li>казначейство и платежный календарь;</li>
+<li>модель размещения свободных денежных средств.</li>
+</ul></div>
+<div class="note">Данные синтетические. Кейс универсален для онлайн-школ и EdTech-компаний.
+<div class="case-automation"><h4>Что здесь автоматизируется</h4><ul>
+<li>бюджетный процесс и план-факт;</li>
+<li>скользящий прогноз;</li>
+<li>факторный анализ отклонений;</li>
+<li>связь драйверов с выручкой и прибылью;</li>
+<li>казначейство и платежный календарь.</li>
+</ul></div></div><div class="actions"><a class="open" href="https://kozlovasvetlana237-del.github.io/online-school-finance-dashboard-case/" target="_blank" rel="noopener">Открыть кейс</a></div></article>
+<article class="case" data-tags="fbp"><div class="case-top"><span class="case-tag demo">демо-прототип</span><span class="case-tag">FBP</span></div><h3>Finance Business Partner: управленческая отчетность</h3><div class="subtitle">Система для проектного международного бизнеса: финансовые потоки, взаиморасчеты, консолидация источников и контроль расхождений.</div><div class="distinct"><b>В чем особенность:</b> кейс показывает не только отчетность, но и всю цепочку от нескольких источников данных до конкретной операции.</div>
+<div class="case-focus"><h4>Что именно показано</h4><ul>
+<li>финансовые потоки;</li>
+<li>ОПиУ, ДДС и управленческий баланс;</li>
+<li>внутренние взаиморасчеты между проектами и контурами;</li>
+<li>консолидация нескольких CRM и других источников;</li>
+<li>логика интеграций и автоматического получения данных;</li>
+<li>контрольные проверки и сверки;</li>
+<li>поиск и разбор финансовых расхождений;</li>
+<li>трассировка показателя до исходной операции.</li>
+</ul></div>
+<div class="note">Данные синтетические. Кейс показывает подход к построению системы с нуля.
+<div class="case-automation"><h4>Что здесь автоматизируется</h4><ul>
+<li>консолидация CRM, ERP, банка и API;</li>
+<li>маппинг операций и внутренних взаиморасчетов;</li>
+<li>ОПиУ, ДДС и управленческий баланс;</li>
+<li>контрольные проверки и поиск расхождений;</li>
+<li>трассировка показателя до первичной операции.</li>
+</ul></div></div><div class="actions"><a class="open" href="https://kozlovasvetlana237-del.github.io/finance-business-partner-case/" target="_blank" rel="noopener">Открыть кейс</a></div></article>
+
+<article class="case" data-tags="healthcare">
+  <div class="case-top">
+    <span class="case-tag demo">демо-кейс</span>
+    <span class="case-tag">услуги · медицина</span>
+  </div>
+
+  <h3>Юнит-экономика стоматологии</h3>
+
+  <div class="subtitle">
+    Автоматизированный управленческий анализ прибыльности услуг и специалистов на основе исходного Excel-файла.
+  </div>
+
+  <div class="distinct">
+    <b>В чем особенность:</b> кейс показывает, как из обычного Excel с детализацией по услугам превратить данные в управленческую систему: автоматически посчитать прибыльность, выявить проблемные услуги и проверить качество исходных данных.
+  </div>
+
+  <div class="case-focus">
+    <h4>Что именно показано</h4>
+    <ul>
+      <li>выручка, валовая, операционная и чистая прибыль;</li>
+      <li>маржинальность по услугам и специалистам;</li>
+      <li>прибыль и выручка на прием;</li>
+      <li>выручка и прибыль на час работы;</li>
+      <li>рейтинг и антирейтинг услуг;</li>
+      <li>структура затрат;</li>
+      <li>waterfall от выручки к чистой прибыли;</li>
+      <li>автоматические зоны внимания и контроль качества данных.</li>
+    </ul>
+  </div>
+
+  <div class="case-automation">
+    <h4>Что здесь автоматизируется</h4>
+    <ul>
+      <li>загрузка исходной детализации из Excel;</li>
+      <li>расчет себестоимости, прибыли и маржинальности;</li>
+      <li>агрегация по специалистам и категориям услуг;</li>
+      <li>поиск убыточных и низкомаржинальных услуг;</li>
+      <li>контроль расхождений и неполных данных;</li>
+      <li>формирование управленческих выводов для пересмотра цен и структуры затрат.</li>
+    </ul>
+  </div>
+
+  <div class="note">
+    Данные обезличены. Название клиники и персональные данные специалистов удалены, логика расчетов сохранена.
+  </div>
+
+  <div class="actions">
+    <a class="open" href="https://kozlovasvetlana237-del.github.io/dental-unit-economics-dashboard/" target="_blank" rel="noopener">Открыть кейс</a>
+  </div>
+</article>
+
+
+<article class="case" data-tags="tax marketplace">
+  <div class="case-top">
+    <span class="case-tag demo">учебный кейс</span>
+    <span class="case-tag">налоги · маркетплейсы</span>
+  </div>
+
+  <h3>Налоговая модель маркетплейс-бизнеса</h3>
+
+  <div class="subtitle">
+    Интерактивное сравнение налоговых режимов с мгновенным пересчетом налоговой нагрузки и чистой прибыли.
+  </div>
+
+  <div class="distinct">
+    <b>В чем особенность:</b> это не статичный налоговый расчет, а сценарная модель, в которой можно менять структуру расходов и сразу видеть, как это влияет на налоги и финансовый результат.
+  </div>
+
+  <div class="case-focus">
+    <h4>Что именно показано</h4>
+    <ul>
+      <li>сравнение УСН «Доходы минус расходы» и ОСНО;</li>
+      <li>расчет налоговой базы;</li>
+      <li>НДС к уплате и входящий НДС;</li>
+      <li>налог на прибыль;</li>
+      <li>чистая прибыль по каждому режиму;</li>
+      <li>структура расходов;</li>
+      <li>эффект перехода между режимами за месяц и год;</li>
+      <li>визуализация распределения каждого рубля выручки.</li>
+    </ul>
+  </div>
+
+  <div class="case-automation">
+    <h4>Что здесь автоматизируется</h4>
+    <ul>
+      <li>пересчет налогов при изменении структуры расходов;</li>
+      <li>сценарное сравнение налоговых режимов;</li>
+      <li>оценка влияния расходов на чистую прибыль;</li>
+      <li>расчет финансового эффекта за месяц и год;</li>
+      <li>визуальное сравнение налоговой нагрузки.</li>
+    </ul>
+  </div>
+
+  <div class="note">
+    Учебный кейс на демонстрационных данных. Показывает подход к финансово-налоговому моделированию и автоматизации сценарных расчетов.
+  </div>
+
+  <div class="actions">
+    <a class="open" href="https://kozlovasvetlana237-del.github.io/tax-marketplace-dashboard/" target="_blank" rel="noopener">Открыть кейс</a>
+  </div>
+</article>
+
+</section>
+
+<section class="automation-hero" style="margin-top:24px">
+  <h2>Автоматизация рутинных финансовых задач</h2>
+  <p>Кроме полноценных систем управленческого учета, я создаю прикладные инструменты, которые убирают ручные операции из ежедневной работы финансовой функции.</p>
+
+  <div class="grid" style="margin-top:16px">
+    <article class="case">
+      <div class="case-top">
+        <span class="case-tag demo">рабочий инструмент</span>
+        <span class="case-tag">API · контроль рисков</span>
+      </div>
+      <h3>Автоматическая проверка контрагентов</h3>
+      <div class="subtitle">Сервис получает данные о компании по ИНН и собирает их в единую карточку для быстрой первичной проверки контрагента.</div>
+
+      <div class="distinct"><b>В чем особенность:</b> вместо ручного поиска сведений по нескольким источникам пользователь вводит ИНН и получает структурированный результат в одном интерфейсе.</div>
+
+      <div class="case-focus">
+        <h4>Что автоматизируется</h4>
+        <ul>
+          <li>получение данных компании по ИНН через API;</li>
+          <li>реквизиты, руководитель, ОКВЭД и регион;</li>
+          <li>сведения о масштабе бизнеса и специальных режимах;</li>
+          <li>вывод факторов риска;</li>
+          <li>формирование единой карточки для финансового контроля;</li>
+          <li>серверная работа с API-ключом без передачи его пользователю.</li>
+        </ul>
+      </div>
+
+      <div class="case-automation">
+        <h4>Что это показывает работодателю</h4>
+        <ul>
+          <li>умение переводить ручную контрольную процедуру в сервис;</li>
+          <li>понимание API и внешних источников данных;</li>
+          <li>умение проектировать финансовый инструмент вокруг реального бизнес-процесса.</li>
+        </ul>
+      </div>
+
+      <div class="actions">
+        <a class="open" href="https://checking.svetlanakozlova-cfo.ru/" target="_blank" rel="noopener">Открыть инструмент</a>
+      </div>
+    </article>
+
+    <article class="case">
+      <div class="case-top">
+        <span class="case-tag demo">рабочий инструмент</span>
+        <span class="case-tag">API · валюты</span>
+      </div>
+      <h3>Валютный калькулятор по курсам ЦБ</h3>
+      <div class="subtitle">Инструмент получает валютные курсы на выбранную дату и автоматически пересчитывает суммы между валютами.</div>
+
+      <div class="distinct"><b>В чем особенность:</b> внешний источник данных встроен непосредственно в финансовый расчет - пользователю не нужно вручную искать курс и переносить его в Excel.</div>
+
+      <div class="case-focus">
+        <h4>Что автоматизируется</h4>
+        <ul>
+          <li>загрузка курсов валют на выбранную дату;</li>
+          <li>выбор нужного набора валют;</li>
+          <li>автоматический пересчет суммы;</li>
+          <li>учет валютных номиналов;</li>
+          <li>использование ближайшего доступного курса для непубликационных дней;</li>
+          <li>работа RUB как базовой валюты.</li>
+        </ul>
+      </div>
+
+      <div class="case-automation">
+        <h4>Что это показывает работодателю</h4>
+        <ul>
+          <li>автоматизацию регулярных финансовых расчетов;</li>
+          <li>подключение внешних данных через API;</li>
+          <li>возможность встраивать такие модули в более крупную финансовую систему.</li>
+        </ul>
+      </div>
+
+      <div class="actions">
+        <a class="open" href="https://currency.svetlanakozlova-cfo.ru/" target="_blank" rel="noopener">Открыть инструмент</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<footer class="footer">Все демонстрационные прототипы используют синтетические данные и предназначены для показа подхода к финансовой архитектуре, автоматизации и управленческой аналитике.</footer>
+</main>
+<script>
+const themeBtn=document.getElementById('themeToggle');
+themeBtn.addEventListener('click',()=>{const isLight=document.body.getAttribute('data-theme')==='light';document.body.setAttribute('data-theme',isLight?'dark':'light');themeBtn.textContent=isLight?'Светлая тема':'Тёмная тема';});
+const filters=document.querySelectorAll('.filter'),cases=document.querySelectorAll('.case');
+filters.forEach(btn=>btn.addEventListener('click',()=>{filters.forEach(x=>x.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;cases.forEach(card=>{const tags=(card.dataset.tags||'').split(' ');card.classList.toggle('hidden',f!=='all'&&!tags.includes(f));});}));
+</script>
+</body>
+</html>
